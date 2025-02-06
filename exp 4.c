@@ -56,36 +56,16 @@ int main() {
         i++;
     }
 
-    printf("\nDelimiters are:\n%s\n", delimitersFound);
-    printf("Operators are:\n%s\n", operatorsFound);
-    printf("Identifiers are:\n");
-    for (int k = 0; k < idCount; k++) printf("%s\n", identifiers[k]);
-    printf("Keywords are:\n");
-    for (int k = 0; k < kwCount; k++) printf("%s\n", keywordsFound[k]);
-    printf("Constants are:\n");
-    for (int k = 0; k < constCount; k++) printf("%s\n", constants[k]);
-    printf("Literals are:\n");
-    for (int k = 0; k < litCount; k++) printf("\"%s\"\n", literals[k]);
+    printf("\nDelimiters: %s\n", delimitersFound);
+    printf("Operators: %s\n", operatorsFound);
+    printf("Identifiers: ");
+    for (int k = 0; k < idCount; k++) printf("%s ", identifiers[k]);
+    printf("\nKeywords: ");
+    for (int k = 0; k < kwCount; k++) printf("%s ", keywordsFound[k]);
+    printf("\nConstants: ");
+    for (int k = 0; k < constCount; k++) printf("%s ", constants[k]);
+    printf("\nLiterals: ");
+    for (int k = 0; k < litCount; k++) printf("\"%s\" ", literals[k]);
 
     return 0;
 }
-
-
-//outputs are
-//Enter the string: #include<stdio.h> void main() {printf("hello!world"); retuen 0}
-
-//Delimiters are: ( ) { ( ; }
-//Operators are: < >
-//Identifiers are: include stdio.h Printf retuen
-
-//Keywords are: void main
-
-//Constants are: 0
-//Literals are: "hello!world"
-
-//5-Step Algorithm for Lexical Analysis
-//S1- Read Input – Get the input string containing C code.
-//S2 - Scan Characters – Traverse the string character by character.
-//S3 - classify Tokens – Identify keywords, identifiers, operators, delimiters, literals, and constants.
-//S4 - Store Tokens – Save each token in its respective category.
-//S5 - Display Output – Print categorized tokens.
