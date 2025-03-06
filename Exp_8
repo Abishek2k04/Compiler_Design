@@ -1,0 +1,73 @@
+#include <stdio.h>
+#include <string.h>
+#define MAX 100
+char input[MAX];
+char stack[MAX];
+int top = -1;
+int ip = 0;
+void push(char c) {
+    stack[++top] = c;
+}
+void pop() {
+    if (top >= 0)
+        top--;
+}
+void display() {
+    printf("$");
+    for (int i = 0; i <= top; i++)
+        printf("%c", stack[i]);
+}
+void reduce() {
+    while (1) {
+        if (top >= 0 && (stack[top] == 'a' || stack[top] == 'b')) {
+            stack[top] = 'E';
+            printf("\t\tE->%c\n", stack[top]);
+        }
+        else if (top >= 2 && stack[top] == 'E' && stack[top - 1] == '+' && stack[top - 2] == 'E') {
+            top -= 2;
+            printf("\t\tE->E+E\n");
+        }
+        else if (top >= 2 && stack[top] == 'E' && stack[top - 1] == '*' && stack[top - 2] == 'E') {
+            top -= 2;
+            printf("\t\tE->E*E\n");
+        } else {
+            break;
+        }
+    }
+}
+int main() {
+    printf("SHIFT REDUCE PARSER\n\n");
+    printf("GRAMMAR:\n");
+    printf("E -> E+E\nE -> E*E\nE -> a\nE -> b\n\n");
+    printf("Enter the input symbol: ");
+    scanf("%s", input);
+    printf("\nStack Implementation Table\n");
+    printf("--------------------------------------------------\n");
+    printf("Stack\t\tInput Symbol\tAction\n");
+    printf("--------------------------------------------------\n");
+    while (input[ip] != '\0') {
+        push(input[ip]);
+        display();
+        printf("\t\t%s\t\tShift %c\n", input + ip + 1, input[ip]);
+        ip++;
+        reduce();
+    }
+     reduce();
+    if (top == 0 && stack[top] == 'E') {
+        printf("--------------------------------------------------\n");
+        printf("ACCEPTED\n");
+    } else {
+        printf("--------------------------------------------------\n");
+        printf("PARSING FAILED\n");
+    }
+    return 0;
+}
+
+//Algorithm:
+//Initialize stack and input.
+//Shift: Push input symbols onto the stack.
+//Reduce: Apply grammar rules on the stack (like a or b → E, E+E → E, E*E → E).
+//Repeat shift and reduce until the input is empty.
+//Check: If only E remains in the stack, print "ACCEPTED", otherwise print "PARSING FAILED".
+
+
